@@ -1,10 +1,12 @@
 package client;
 
-import com.google.gson.Gson; // <--- Qui stiamo testando se la libreria funziona!
-import common.StreamRecord;
+import java.io.File; 
 import java.io.FileReader;
 import java.io.Reader;
-import java.io.File;
+
+import com.google.gson.Gson;
+
+import common.StreamRecord;
 
 public class Main {
     public static void main(String[] args) {
