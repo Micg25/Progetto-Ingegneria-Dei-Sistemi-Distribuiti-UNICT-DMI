@@ -1,7 +1,7 @@
 package common;
 import java.io.Serializable;
 
-public class StreamRecord implements Serializable{
+public class StreamRecordDTO implements Serializable{
     public String ts;
     public String platform;
     public long ms_played;
