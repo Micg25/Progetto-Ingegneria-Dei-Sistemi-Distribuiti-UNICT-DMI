@@ -16,11 +16,26 @@ public class Main {
             SpotifyService stub = (SpotifyService) registry.lookup("Spotifyservice");
             Scanner input = new Scanner(System.in);
             System.out.println("Insert a year:");
-            int anno = input.nextInt();
-
-            List<StreamRecordDTO> result = stub.getSongsByYear(anno);
-            System.out.println(result);
-            
+            try{
+            if (input.hasNextInt() ) {
+                int anno = input.nextInt();
+                if(anno >= 2008){
+                    List<StreamRecordDTO> result = stub.getSongsByYear(anno);
+                    if(result.size() == 0){
+                        System.out.println("In the year " + anno + " either you haven't listened to " + result.size() + " songs or there are no datas for this year ");
+                    }
+                    else
+                    System.out.println("In the year " + anno + " you've listened to " + result.size() + " songs!");
+                }
+                else
+                throw new Exception("Invalid year, 2008 minimum");
+            } 
+            else
+            throw new Exception("Invalid Input, instert a year");
+        } catch(Exception e) {
+                System.out.println(e.getMessage());
+                //input.next(); // cleans the input
+            }
             
         } catch (Exception e) {
             e.printStackTrace();

@@ -60,7 +60,6 @@ public class SpotifyServiceImpl extends UnicastRemoteObject implements SpotifySe
                 }
             }
         }
-        System.out.println("TOTALE: "+filteredSongs.size());
         return filteredSongs;
     }
 }
