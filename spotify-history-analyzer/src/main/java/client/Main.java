@@ -8,15 +8,21 @@ import java.util.Scanner;
 import common.SpotifyService;
 import common.StreamRecordDTO;
 
-
 public class Main {
     public static void main(String[] args) {
+                    
+
+        
+
         try {
-            // 1. Connessione RMI
-            Registry registry = LocateRegistry.getRegistry("localhost", 1099);
-            SpotifyService stub = (SpotifyService) registry.lookup("Spotifyservice");
+        // 1. Connessione RMI
+        Registry registry = LocateRegistry.getRegistry("localhost", 1099);
+        SpotifyService stub = (SpotifyService) registry.lookup("Spotifyservice");
+        Scanner input = new Scanner(System.in);
+        System.out.print("Username: ");
+        String user = input.next();
             
-            Scanner input = new Scanner(System.in);
+            
             
 
             
@@ -24,7 +30,8 @@ public class Main {
             boolean running = true;
             while (running) {
                 System.out.println("\n--- MENU ---");
-                System.out.println("1. How many songs have you listened in a specific year");
+                System.out.println("1. Login");
+                System.out.println("2. How many songs have you listened in a specific year");
                 System.out.println("0. Exit");
                 System.out.print("Choice: ");
 
@@ -32,7 +39,8 @@ public class Main {
                     int choice = input.nextInt();
 
                     switch (choice) {
-                        case 1 -> {
+                        case 1 -> { stub.login(user);}
+                        case 2 -> {
                             System.out.print("Insert a year: ");
                             if (input.hasNextInt()) {
                                 int anno = input.nextInt();
