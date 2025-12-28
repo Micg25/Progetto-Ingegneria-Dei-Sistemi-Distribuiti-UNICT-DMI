@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 import common.SpotifyService;
 import common.StreamRecordDTO;
-
+import common.Token;
 public class Main {
     public static void main(String[] args) {
                     
@@ -19,10 +19,10 @@ public class Main {
         Registry registry = LocateRegistry.getRegistry("localhost", 1099);
         SpotifyService stub = (SpotifyService) registry.lookup("Spotifyservice");
         Scanner input = new Scanner(System.in);
-        System.out.print("Username: ");
+        System.out.print("\n Username: ");
         String user = input.next();
-            
-            
+        Token token = stub.login(user);
+        System.out.println(""+token+user);
             
 
             
@@ -39,14 +39,14 @@ public class Main {
                     int choice = input.nextInt();
 
                     switch (choice) {
-                        case 1 -> { stub.login(user);}
+                        case 1 -> { token = stub.login(user);}
                         case 2 -> {
                             System.out.print("Insert a year: ");
                             if (input.hasNextInt()) {
                                 int anno = input.nextInt();
                                 try {
                                     
-                                    List<StreamRecordDTO> result = stub.getSongsByYear(anno); 
+                                    List<StreamRecordDTO> result = stub.getSongsByYear(token, anno); 
                                     
                                     if (result.isEmpty()) {
                                         System.out.println("In the year " + anno + " no songs found.");

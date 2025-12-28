@@ -14,8 +14,6 @@ import com.google.gson.Gson;
 import common.SpotifyService;
 import common.StreamRecordDTO;
 import common.Token;
-import server.TokenGenerator;
-import server.TokenStore;
 public class SpotifyServiceImpl extends UnicastRemoteObject implements SpotifyService{
 
     private final TokenGenerator tokenGenerator = TokenGenerator.getInstance();
@@ -25,7 +23,7 @@ public class SpotifyServiceImpl extends UnicastRemoteObject implements SpotifySe
         super();
     }
     
-    public List<StreamRecordDTO> getSongsByYear(int anno) throws RemoteException{
+    public List<StreamRecordDTO> getSongsByYear(Token token, int anno) throws RemoteException{
 
         if(!tokenStore.isValid(token.payload())){
             System.out.println("[Server] Access denied, invalid or expired token.");
