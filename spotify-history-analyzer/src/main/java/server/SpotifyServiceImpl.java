@@ -25,7 +25,7 @@ public class SpotifyServiceImpl extends UnicastRemoteObject implements SpotifySe
     
     public List<StreamRecordDTO> getSongsByYear(Token token, int anno) throws RemoteException{
 
-        if(!tokenStore.isValid(token.payload())){
+        if(!tokenStore.isValid(token.payload()) || !tokenStore.isValidSignature(token)){
             System.out.println("[Server] Access denied, invalid or expired token.");
             // Rilancia l'eccezione al client
             throw new RemoteException("SESSION_EXPIRED: Login again.");

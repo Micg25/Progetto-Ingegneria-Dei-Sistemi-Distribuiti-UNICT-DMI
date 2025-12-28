@@ -39,7 +39,11 @@ public class Main {
                     int choice = input.nextInt();
 
                     switch (choice) {
-                        case 1 -> { token = stub.login(user);}
+                        case 1 -> {      
+                            System.out.print("\n Username: ");
+                            user = input.next();
+                            token = stub.login(user);
+                            }
                         case 2 -> {
                             System.out.print("Insert a year: ");
                             if (input.hasNextInt()) {
