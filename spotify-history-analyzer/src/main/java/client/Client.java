@@ -2,9 +2,11 @@ package client;
 
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import common.SessionDTO;
 import common.SpotifyService;
 import common.StreamRecordDTO;
 import common.Token;
@@ -15,10 +17,11 @@ import common.Token;
 public class Client {
     private String user;
     private SpotifyService service;
-
+    private SessionDTO session;
     public Client(String user, SpotifyService serv) {
         this.user = user;
         service = serv;
+        this.session = new SessionDTO(new ArrayList<>(), new ArrayList<>());
     }
 
     public void run() {
@@ -34,6 +37,7 @@ public class Client {
                 System.out.println("\n--- MENU ---");
                 System.out.println("1. Login");
                 System.out.println("2. How many songs have you listened in a specific year");
+                System.out.println("3. Show History");
                 System.out.println("0. Exit");
                 System.out.print("Choice: ");
 
@@ -52,7 +56,7 @@ public class Client {
                                 int anno = input.nextInt();
                                 try {
                                     
-                                    List<StreamRecordDTO> result = service.getSongsByYear(token, anno); 
+                                    List<StreamRecordDTO> result = service.getSongsByYear(token, anno, session); 
                                     
                                     if (result.isEmpty()) {
                                         System.out.println("In the year " + anno + " no songs found.");
@@ -68,6 +72,9 @@ public class Client {
                             }
                         }
                         
+                        case 3 -> {
+                            System.out.println(service.showHistory(session));
+                        }
                         case 0 -> {
                             System.out.println("Exiting...");
                             running = false;
