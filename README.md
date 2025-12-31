@@ -32,7 +32,6 @@ This project implements several architectural patterns studied in Distributed Sy
 
 
 📂 Project Structure
-        ### Struttura del Progetto
 
 ```text
 ├── client
