@@ -31,12 +31,15 @@ This project implements several architectural patterns studied in Distributed Sy
     4. Client Session State: To keep the server stateless, the History and Cache are stored in a SessionDTO held by the Client. This object is passed to the server with every request and returned with updates.
 
 
-    📂 Project Structure
+📂 Project Structure
+        ### Struttura del Progetto
+
+```text
 ├── client
-│   ├── Client.java       # Handles user input and local state (SessionDTO)
-│   └── Main.java         # Entry point for the Client
+│   ├── Client.java         # Handles user input and local state (SessionDTO)
+│   └── Main.java           # Entry point for the Client
 ├── server
-│   ├── Server.java       # Registers the RMI Service
+│   ├── Server.java         # Registers the RMI Service
 │   ├── SpotifyServiceImpl.java # Implementation of business logic (Facade)
 │   ├── TokenGenerator.java     # Singleton for generating RSA signatures
 │   └── TokenStore.java         # Validates tokens and signatures
@@ -45,6 +48,7 @@ This project implements several architectural patterns studied in Distributed Sy
     ├── SessionDTO.java         # "Suitcase" for History and Cache
     ├── StreamRecordDTO.java    # Represents a single song record
     └── Token.java              # Security token record
+```
 
 🛠️ Getting Started
 Prerequisites
