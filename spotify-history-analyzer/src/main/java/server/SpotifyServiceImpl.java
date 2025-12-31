@@ -27,12 +27,7 @@ public class SpotifyServiceImpl extends UnicastRemoteObject implements SpotifySe
     
     public SessionDTO getSongsByYear(Token token, int anno, SessionDTO currentSession) throws RemoteException{
 
-        String opid="2"+String.valueOf(anno);
-
-        if (currentSession.history().containsKey(opid)) {
-            return new SessionDTO(new ArrayList<>(), currentSession.history());
-        }
-
+        
 
         if(!tokenStore.isValid(token.payload()) || !tokenStore.isValidSignature(token)){
             System.out.println("[Server] Access denied, invalid or expired token.");
@@ -84,6 +79,7 @@ public class SpotifyServiceImpl extends UnicastRemoteObject implements SpotifySe
     }
     else{
         System.out.println("Invalid year, 2008 minimum");
+        return new SessionDTO(new ArrayList<>(),currentSession.history());
     }
         currentSession.currentResult().addAll(filteredSongs);
         currentSession.history().put(String.valueOf(2)+String.valueOf(anno),"In the year " + anno + " you've listened to " + filteredSongs.size() + " songs!");

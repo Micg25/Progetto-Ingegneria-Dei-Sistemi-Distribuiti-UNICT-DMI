@@ -51,17 +51,22 @@ public class Client {
                             System.out.print("Insert a year: ");
                             if (input.hasNextInt()) {
                                 int anno = input.nextInt();
+                                if(anno < 2008){
+                                    System.out.println("Invalid year, minimum 2008");
+                                    break;
+                                }
                                 String opid="2"+String.valueOf(anno);
+                                if (!session.history().isEmpty()) {
+                                    if(session.history().containsKey(opid)){
+                                        String oldMessage = session.history().get(opid);
+                                        System.out.println("CACHE HIT!: "+oldMessage);
+                                        break;
+                                    }
+                                }                             
                                 try {
-                                    
                                     session  = service.getSongsByYear(token, anno, session); 
-                                    
+    
                                     if (session.currentResult().isEmpty()) {
-                                        if(session.history().containsKey(opid)){
-                                            String oldMessage = session.history().get(opid);
-                                            System.out.println("CACHE HIT!: "+oldMessage);
-                                            break;
-                                        }
                                         System.out.println("In the year " + anno + " no songs found.");
                                     } else {
                                         System.out.println("[" + user +"]" + "In the year " + anno + " you've listened to " + session.currentResult().size() + " songs!");
@@ -73,8 +78,8 @@ public class Client {
                                 System.out.println("Invalid year format.");
                                 input.next(); // Pulisce buffer
                             }
-                        }
                         
+                    }
                         case 3 -> {
                             
                             for(String result : service.showHistory(session).values()){
