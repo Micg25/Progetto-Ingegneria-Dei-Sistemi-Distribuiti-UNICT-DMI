@@ -52,18 +52,14 @@ public class SpotifyServiceImpl extends UnicastRemoteObject implements SpotifySe
         
         if (listOfFiles != null) {
             for (File file : listOfFiles) {
-                // 1. Controllo solo che sia un file audio di Spotify, IGNORO l'anno nel nome del file
-                //    perché i nomi dei file spesso coprono range di anni (es. 2010-2015).
                 if (file.getName().startsWith("Streaming_History_Audio_")) {
                     
                     try (Reader reader = new FileReader(file.getAbsolutePath())) {
                         StreamRecordDTO[] records = gson.fromJson(reader, StreamRecordDTO[].class);
                     
                         if (records != null) {
-                            // 2. FILTRO GRANULARE: Controllo canzone per canzone
+                            //Controllo canzone per canzone
                             for (StreamRecordDTO song : records) {
-                                // Il campo 'ts' è formattato come "YYYY-MM-DDTHH:MM:SSZ"
-                                // Quindi basta controllare se inizia con l'anno richiesto.
                                 if (song.ts != null && song.ts.startsWith(String.valueOf(anno))) {
                                     filteredSongs.add(song);
                                 }
